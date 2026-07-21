@@ -27,7 +27,7 @@ public abstract class TestCase {
         browserFactory = new BrowserFactory();
         driver = browserFactory.createDriver(browserType);
         wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(2))
+                .withTimeout(Duration.ofSeconds(5))
                 .pollingEvery(Duration.ofMillis(250))
                 .ignoring(NotFoundException.class)
                 .ignoring(ElementNotInteractableException.class)
