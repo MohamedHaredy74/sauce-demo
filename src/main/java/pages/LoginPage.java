@@ -22,9 +22,14 @@ public class LoginPage {
         bot.navigateTo(url);
         return this;
     }
+    public SignUpPage preSignUp(String name, String email)
+    {
+        bot.type(signUpNameInput,name);
+        bot.type(signUpEmailInput,email);
+        bot.click(signUpButton);
 
-
-
+        return new SignUpPage(bot);
+    }
 
 
 
