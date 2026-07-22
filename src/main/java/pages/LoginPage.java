@@ -27,7 +27,6 @@ public class LoginPage {
         bot.type(signUpNameInput,name);
         bot.type(signUpEmailInput,email);
         bot.click(signUpButton);
-
         return new SignUpPage(bot);
     }
 

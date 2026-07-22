@@ -3,6 +3,7 @@ package engin;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 
@@ -79,4 +80,17 @@ public class ActionsBot {
             return title;
         });
     }
+
+    public ActionsBot selectByVisibleText(By locator, String text) {
+        wait.until(d -> {
+            System.out.println("Selecting option with value: " + text + " from dropdown located by: " + locator);
+            Select select = new Select(d.findElement(locator));
+            select.selectByValue(text);
+            System.out.println("Selection was successful.");
+            return true;
+        });
+        return this;
+    }
+
+
 }
