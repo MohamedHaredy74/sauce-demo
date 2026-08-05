@@ -1,0 +1,25 @@
+{
+  "preSignUp": {
+    "name": "mohammeeddd",
+    "email": "mohammedddd@test.com"
+  },
+  "account": {
+    "title": "Mr",
+    "password": "P@ssw0rd",
+    "day": "1",
+    "month": "October",
+    "year": "1999"
+  },
+  "address": {
+    "firstName": "mohammmedd33",
+    "lastName": "ashraff",
+    "company": "TOT",
+    "address1": "Cairo",
+    "address2": "Nasr City",
+    "country": "Singapore",
+    "state": "cairo",
+    "city": "giza",
+    "zipCode": "123456",
+    "mobileNumber": "0123456789"
+  }
+}

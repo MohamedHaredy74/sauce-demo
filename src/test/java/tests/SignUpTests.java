@@ -12,11 +12,12 @@ public class SignUpTests extends TestCase {
         new HomePage(bot)
                 .navigate()
                 .clickLoginLink()
-                .preSignUp("mohammeedd","mohammeddd@test.com")
-                .fillAccountInfo("Mr","P@ssw0rd","1","October","1999")
-                .fillAddressInfoAndSubmit("mohammmedd33","ashraff","TOT","Cairo","Nasr City","Egypt","cairo","giza","123456","0123456789")
+                .preSignUp("mohammeeddd", "mohammedddd@test.com")
+                .fillAccountInfo("Mr", "P@ssw0rd", "1", "October", "1999")
+                .fillAddressInfoAndSubmit("mohammmedd33", "ashraff", "TOT", "Cairo", "Nasr City", "Singapore", "cairo", "giza", "123456", "0123456789")
                 .assertPageTitle();
     }
+
 }
 
 

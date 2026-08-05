@@ -85,7 +85,7 @@ public class ActionsBot {
         wait.until(d -> {
             System.out.println("Selecting option with value: " + text + " from dropdown located by: " + locator);
             Select select = new Select(d.findElement(locator));
-            select.selectByValue(text);
+            select.selectByVisibleText(text);
             System.out.println("Selection was successful.");
             return true;
         });
