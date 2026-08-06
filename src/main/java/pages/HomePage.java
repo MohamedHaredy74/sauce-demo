@@ -21,7 +21,8 @@ public class HomePage {
         return this;
     }
 
-    public LoginPage clickLoginLink(){
+    public LoginPage
+    clickLoginLink(){
         bot.click(loginLink);
         return new LoginPage(bot);
     }

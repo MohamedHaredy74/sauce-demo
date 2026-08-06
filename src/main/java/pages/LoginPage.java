@@ -2,6 +2,7 @@ package pages;
 
 import engin.ActionsBot;
 import models.LoginData;
+import models.PreSignUpData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.bidi.log.Log;
 
@@ -28,10 +29,10 @@ public class LoginPage {
         bot.navigateTo(URL);
         return this;
     }
-    public SignUpPage preSignUp( String name, String email)
+    public SignUpPage preSignUp(PreSignUpData data)
     {
-        bot.type(signUpNameInput,name);
-        bot.type(signUpEmailInput,email);
+        bot.type(signUpNameInput, data.name());
+        bot.type(signUpEmailInput,data.email());
         bot.click(signUpButton);
         return new SignUpPage(bot);
     }
@@ -44,6 +45,8 @@ public class LoginPage {
         bot.click(loginButton);
 
     }
+
+
 
 
 

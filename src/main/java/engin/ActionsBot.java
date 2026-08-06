@@ -3,6 +3,7 @@ package engin;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
@@ -72,6 +73,16 @@ public class ActionsBot {
         return this;
     }
 
+    public ActionsBot validateElementIsDisplayed(By locator) {
+        wait.until(d -> {
+            System.out.println("Asserting that element is displayed"+ locator);
+            Assert.assertTrue(d.findElement(locator).isDisplayed());
+            System.out.println("Assertion was successful.");
+            return true;
+        });
+        return this;
+    }
+
 
     public String getTitle() {
         return wait.until(d -> {
@@ -90,6 +101,14 @@ public class ActionsBot {
             return true;
         });
         return this;
+    }
+
+    public WebElement locateElement(By locator){
+        return wait.until(d -> {
+            WebElement element=d.findElement(locator);
+            System.out.println("Retrieved page title: " + element);
+            return element;
+        });
     }
 
 
