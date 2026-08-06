@@ -36,6 +36,7 @@ public class SignUpPage {
     public SignUpPage(ActionsBot bot)
     {
         this.bot=bot;
+        //Islam sends his greetings
     }
 
 
