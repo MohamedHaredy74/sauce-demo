@@ -70,7 +70,7 @@ public class SignUpPage {
         return new AccountCreatedPage(bot);
     }
 
-    public void selectBirthDate(String day, String month, String year) {
+    private void selectBirthDate(String day, String month, String year) {
         bot.selectByVisibleText(birthDaySelect, day);
         bot.selectByVisibleText(birthMonthSelect, month);
         bot.selectByVisibleText(birthYearSelect, year);
