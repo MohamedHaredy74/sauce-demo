@@ -1,7 +1,6 @@
 package tests;
 
 
-import models.LoginData;
 import models.RegisterData;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -25,7 +24,8 @@ public class SignUpTests extends TestCase {
                 .validateThatRegisterFormIsOpen();
         new SignUpPage(bot)
                 .fillAccountInfo(registerData.account())
-                .fillAddressInfoAndSubmit(registerData.address());
+                .fillAddressInfoAndSubmit(registerData.address())
+                .validateAccountCreatedSuccessMessage();
     }
 
 

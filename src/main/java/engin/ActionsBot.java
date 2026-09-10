@@ -1,9 +1,9 @@
 package engin;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
@@ -14,6 +14,7 @@ public class ActionsBot {
         this.wait = wait;
     }
 
+    @Step("Typing text: {text} into element located by: {locator}")
     public void type(By locator, String text) {
         wait.until(d -> {
             System.out.println("Typing text: " + text + " into element located by: " + locator);
@@ -23,6 +24,7 @@ public class ActionsBot {
         });
     }
 
+    @Step("Typing text: {text} into element located by: {locator} and pressing Enter")
     public void typeAndEnter(By locator, String text) {
         wait.until(d -> {
             System.out.println("Typing text: " + text + " into element located by: " + locator + " and pressing Enter");
@@ -32,6 +34,7 @@ public class ActionsBot {
         });
     }
 
+    @Step("Clicking on element located by: {locator}")
     public void click(By locator) {
         wait.until(d -> {
             System.out.println("Clicking on element located by: " + locator);
@@ -42,6 +45,7 @@ public class ActionsBot {
     }
 
     // create navigation methods
+    @Step("Navigating to URL: {url}")
     public void navigateTo(String url) {
         wait.until(d -> {
             System.out.println("Navigating to URL: " + url);
@@ -52,6 +56,7 @@ public class ActionsBot {
     }
     // create a methode to assert equal
 
+    @Step("Asserting that actual value: {actual} is equal to expected value: {expected}")
     public ActionsBot assertEqual(String actual, String expected) {
         wait.until(d -> {
             System.out.println("Asserting that actual value: " + actual + " is equal to expected value: " + expected);
@@ -63,6 +68,7 @@ public class ActionsBot {
     }
 
 
+    @Step("Asserting that condition is true with message: {message}")
     public ActionsBot assertTrue(boolean condition, String message) {
         wait.until(d -> {
             System.out.println("Asserting that condition is true."+condition );
@@ -73,6 +79,7 @@ public class ActionsBot {
         return this;
     }
 
+    @Step("Validating that element located by: {locator} is displayed")
     public ActionsBot validateElementIsDisplayed(By locator) {
         wait.until(d -> {
             System.out.println("Asserting that element is displayed"+ locator);
@@ -82,8 +89,20 @@ public class ActionsBot {
         });
         return this;
     }
+    @Step("Validating that the text of element located by: {locator} is equal to expected text: {expectedText}")
+    public ActionsBot validateTheTextOfElement(By locator, String expectedText) {
+        wait.until(d -> {
+            String actualText = d.findElement(locator).getText();
+            System.out.println("Validating that the text of element located by: " + locator + " is equal to expected text: " + expectedText);
+            Assert.assertEquals(actualText, expectedText);
+            System.out.println("Validation was successful.");
+            return true;
+        });
+        return this;
+    }
 
 
+    @Step("Retrieving the title of the current page")
     public String getTitle() {
         return wait.until(d -> {
             String title = d.getTitle();
@@ -92,6 +111,7 @@ public class ActionsBot {
         });
     }
 
+    @Step("Selecting option with visible text: {text} from dropdown located by: {locator}")
     public ActionsBot selectByVisibleText(By locator, String text) {
         wait.until(d -> {
             System.out.println("Selecting option with value: " + text + " from dropdown located by: " + locator);
@@ -101,14 +121,6 @@ public class ActionsBot {
             return true;
         });
         return this;
-    }
-
-    public WebElement locateElement(By locator){
-        return wait.until(d -> {
-            WebElement element=d.findElement(locator);
-            System.out.println("Retrieved page title: " + element);
-            return element;
-        });
     }
 
 

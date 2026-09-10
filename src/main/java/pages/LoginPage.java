@@ -1,10 +1,11 @@
 package pages;
 
 import engin.ActionsBot;
+import io.qameta.allure.Step;
 import models.LoginData;
 import models.PreSignUpData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.bidi.log.Log;
+
 
 public class LoginPage {
 
@@ -24,21 +25,23 @@ public class LoginPage {
 
 
 
-
+    @Step("Navigate to login page")
     public LoginPage navigate(){
         bot.navigateTo(URL);
         return this;
     }
+
+    @Step("Pre sign up with:{data} ")
     public SignUpPage preSignUp(PreSignUpData data)
     {
         bot.type(signUpNameInput, data.name());
-        bot.type(signUpEmailInput,data.email());
+        bot.type(signUpEmailInput,"user" + System.currentTimeMillis() + "@test.com");
         bot.click(signUpButton);
         return new SignUpPage(bot);
     }
 
 
-
+    @Step("Login with: {loginData}")
     public void login(LoginData loginData){
         bot.type(loginEmailInput,loginData.email());
         bot.type(loginPasswordInput, loginData.password());

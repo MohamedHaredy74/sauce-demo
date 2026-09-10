@@ -1,6 +1,7 @@
 package pages;
 
 import engin.ActionsBot;
+import io.qameta.allure.Step;
 import models.AccountData;
 import models.AddressData;
 import org.openqa.selenium.By;
@@ -40,22 +41,25 @@ public class SignUpPage {
     }
 
 
+    @Step("Navigate to sign up page")
     public SignUpPage navigate() {
         bot.navigateTo(URL);
         return this;
     }
-
+    @Step("Validate that register form is open")
     public void validateThatRegisterFormIsOpen(){
       bot.validateElementIsDisplayed(accountInformationHeader);
 
     }
 
+    @Step("Fill account information with data: {accountData}")
     public SignUpPage  fillAccountInfo(AccountData accountData) {
         bot.click(selectTitleRadioButton(accountData.title()));
         bot.type(passwordInput,accountData.password());
         selectBirthDate(accountData.day(), accountData.month(), accountData.year());
         return this;
     }
+    @Step("Fill address information with data: {addressData} and submit")
     public AccountCreatedPage fillAddressInfoAndSubmit(AddressData addressData) {
         bot.type(firstNameInput,addressData.firstName());
         bot.type(lastNameInput,addressData.lastName());
@@ -71,6 +75,7 @@ public class SignUpPage {
         return new AccountCreatedPage(bot);
     }
 
+    @Step("Select birth date: {day}-{month}-{year}")
     private void selectBirthDate(String day, String month, String year) {
         bot.selectByVisibleText(birthDaySelect, day);
         bot.selectByVisibleText(birthMonthSelect, month);

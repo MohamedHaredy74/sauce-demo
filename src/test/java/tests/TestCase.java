@@ -1,6 +1,7 @@
 package tests;
 import engin.ActionsBot;
 import engin.BrowserFactory;
+import io.qameta.allure.Step;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -21,6 +22,7 @@ public abstract class TestCase {
     public ActionsBot bot;
     private BrowserFactory browserFactory;
 
+    @Step("Setting up the test environment with browser type: {browserType}")
     @BeforeMethod
     @Parameters({"browserType" })
     public void setUp(@Optional("chrome") String browserType) {
@@ -36,6 +38,7 @@ public abstract class TestCase {
         bot = new ActionsBot(wait);
     }
 
+    @Step("Tearing down the test environment and quitting the browser")
     @AfterMethod
     public void tearDown() {
         browserFactory.quitDriver();
