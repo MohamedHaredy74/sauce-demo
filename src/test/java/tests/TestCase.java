@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.*;
+import utils.BrowserFactory;
 import utils.ExcecutionListener;
 import utils.LogUtils;
 

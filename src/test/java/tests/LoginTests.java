@@ -8,9 +8,6 @@ import utils.JsonReader;
 
 public class LoginTests extends TestCase {
 
-
-
-
     @Description("Test to validate successful login with valid credentials")
     @Test
      void loginWithValidData()

@@ -1,7 +1,6 @@
 package pages;
 
 import engin.ActionsBot;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -17,7 +16,7 @@ public class AccountCreatedPage {
     By accountCreatedHeader= By.xpath("//h2[contains(.,'Account Created!')]");
     By continueButton= By.xpath("//a[@data-qa='continue-button']");
 
-   // @Step("Click on continue button")
+    @Step("Click on continue button")
     public HomePage clickContinueButton(){
         actionsBot.getElementAction().click(continueButton);
         return new HomePage(actionsBot);

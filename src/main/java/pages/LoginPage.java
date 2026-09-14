@@ -42,7 +42,6 @@ public class LoginPage {
         return new SignUpPage(actionsBot);
     }
 
-
     @Step("Login with valid email and valid password")
     public void login(LoginData loginData){
         actionsBot.getElementAction().type(loginEmailInput,loginData.email());
