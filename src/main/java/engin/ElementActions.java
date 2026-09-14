@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import utils.LogUtils;
 
-public class ElementBot {
+public class ElementActions {
 
     private final  Wait<WebDriver> wait;
-    public ElementBot (Wait<WebDriver> wait) {
+    public ElementActions(Wait<WebDriver> wait) {
         this.wait = wait;
     }
 
@@ -48,7 +48,7 @@ public class ElementBot {
         });
     }
     @Step("Selecting option with visible text: {text} from dropdown located by: {locator}")
-    public ElementBot selectByVisibleText(By locator, String text) {
+    public ElementActions selectByVisibleText(By locator, String text) {
         wait.until(d -> {
             LogUtils.info("Selecting Element  with value: " + text + " from dropdown located by: " + locator);
             Select select = new Select(d.findElement(locator));

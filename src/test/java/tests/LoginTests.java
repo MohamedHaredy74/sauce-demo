@@ -1,7 +1,7 @@
 package tests;
 
 import io.qameta.allure.Description;
-import models.LoginData;
+import dataModels.LoginData;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import utils.JsonReader;
@@ -20,7 +20,7 @@ public class LoginTests extends TestCase {
                         "validLogin.json",
                         LoginData.class);
 
-        new LoginPage(elementbot,browserbot,assertionbot)
+        new LoginPage(actionsBot)
                 .navigate()
                 .login(loginData);
 

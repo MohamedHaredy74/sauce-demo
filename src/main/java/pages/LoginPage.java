@@ -1,27 +1,20 @@
 package pages;
 
-import engin.AssertionBot;
-import engin.BrowserBot;
-import engin.ElementBot;
+import engin.ActionsBot;
 import io.qameta.allure.Step;
-import models.LoginData;
-import models.PreSignUpData;
+import dataModels.LoginData;
+import dataModels.PreSignUpData;
 import org.openqa.selenium.By;
 
 
 public class LoginPage {
 
     private final  String URL ="https://automationexercise.com/login";
+    private ActionsBot actionsBot;
 
-    ElementBot elementBot;
-    BrowserBot browserBot;
-    AssertionBot assertionBot;
-    public LoginPage(ElementBot elementBot, BrowserBot browserBot,AssertionBot assertionBot){
+    public LoginPage(ActionsBot actionsBot){
 
-        this.elementBot=elementBot;
-        this.browserBot= browserBot;
-        this.assertionBot=assertionBot;
-
+        this.actionsBot=actionsBot;
     }
 
     //locators
@@ -34,27 +27,27 @@ public class LoginPage {
 
 
 
-    @Step("Navigate to login page")
+   @Step("Navigate to login page")
     public LoginPage navigate(){
-        browserBot.navigateTo(URL);
+        actionsBot.getBrowserAction().navigateTo(URL);
         return this;
     }
 
-    @Step("Pre sign up with:{data} ")
+    @Step("Pre sign up with name and email ")
     public SignUpPage preSignUp(PreSignUpData data)
     {
-        elementBot.type(signUpNameInput, data.name());
-        elementBot.type(signUpEmailInput,"user" + System.currentTimeMillis() + "@test.com");
-        elementBot.click(signUpButton);
-        return new SignUpPage(elementBot,browserBot,assertionBot);
+        actionsBot.getElementAction().type(signUpNameInput, data.name());
+        actionsBot.getElementAction().type(signUpEmailInput,"user" + System.currentTimeMillis() + "@test.com");
+        actionsBot.getElementAction().click(signUpButton);
+        return new SignUpPage(actionsBot);
     }
 
 
-    @Step("Login with: {loginData}")
+    @Step("Login with valid email and valid password")
     public void login(LoginData loginData){
-        elementBot.type(loginEmailInput,loginData.email());
-        elementBot.type(loginPasswordInput, loginData.password());
-        elementBot.click(loginButton);
+        actionsBot.getElementAction().type(loginEmailInput,loginData.email());
+        actionsBot.getElementAction().type(loginPasswordInput, loginData.password());
+        actionsBot.getElementAction().click(loginButton);
 
     }
 

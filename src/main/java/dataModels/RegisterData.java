@@ -1,4 +1,4 @@
-package models;
+package dataModels;
 
 public record RegisterData(PreSignUpData preSignUp,
                            AccountData account,

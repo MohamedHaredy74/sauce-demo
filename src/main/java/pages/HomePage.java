@@ -1,23 +1,19 @@
 package pages;
 
-import engin.AssertionBot;
-import engin.BrowserBot;
-import engin.ElementBot;
+import engin.ActionsBot;
+import engin.AssertionActions;
+import engin.BrowserActions;
+import engin.ElementActions;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 public class HomePage {
 
     private String url="https://automationexercise.com/";
+    private ActionsBot actionsBot;
 
-    ElementBot elementBot;
-    BrowserBot browserBot;
-    AssertionBot assertionBot;
-
-    public HomePage(ElementBot elementBot, BrowserBot browserBot, AssertionBot assertionBot){
-        this.assertionBot=assertionBot;
-        this.browserBot=browserBot;
-        this.elementBot=elementBot;
+    public HomePage(ActionsBot actionsBot){
+        this.actionsBot= actionsBot;
     }
 
 
@@ -27,14 +23,14 @@ public class HomePage {
 
     @Step("Navigate to home page ")
     public  HomePage navigate(){
-        browserBot.navigateTo(url);
+        actionsBot.getBrowserAction().navigateTo(url);
         return this;
     }
 
     @Step("Click on login link")
     public LoginPage clickLoginLink(){
-        elementBot.click(loginLink);
-        return new LoginPage(elementBot,browserBot,assertionBot);
+        actionsBot.getElementAction().click(loginLink);
+        return new LoginPage(actionsBot);
     }
 
 

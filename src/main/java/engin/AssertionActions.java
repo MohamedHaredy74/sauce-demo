@@ -7,17 +7,17 @@ import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import utils.LogUtils;
 
-public class AssertionBot{
+public class AssertionActions {
 
 private final  Wait<WebDriver> wait;
-public AssertionBot (Wait<WebDriver> wait) {
+public AssertionActions(Wait<WebDriver> wait) {
     this.wait = wait;
 }
 
 
 
     @Step("Validating that element located by: {locator} is displayed")
-    public AssertionBot validateElementIsDisplayed(By locator) {
+    public AssertionActions validateElementIsDisplayed(By locator) {
         wait.until(d -> {
             LogUtils.info("Asserting that element located by: "+locator+" is displayed");
             Assert.assertTrue(d.findElement(locator).isDisplayed());
@@ -27,7 +27,7 @@ public AssertionBot (Wait<WebDriver> wait) {
         return this;
     }
     @Step("Validating that the text of element located by: {locator} is equal to expected text: {expectedText}")
-    public AssertionBot validateTheTextOfElement(By locator, String expectedText) {
+    public AssertionActions validateTheTextOfElement(By locator, String expectedText) {
         wait.until(d -> {
             String actualText = d.findElement(locator).getText();
             LogUtils.info("Validating that the text of element located by: " + locator + " is equal to expected text: " + expectedText);

@@ -1,4 +1,4 @@
-package models;
+package dataModels;
 
 public record AccountData(
         String title,

@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 import utils.LogUtils;
 
-public class BrowserBot {
+public class BrowserActions {
 
     private final  Wait<WebDriver> wait;
-    public BrowserBot (Wait<WebDriver> wait) {
+    public BrowserActions(Wait<WebDriver> wait) {
         this.wait = wait;
     }
 

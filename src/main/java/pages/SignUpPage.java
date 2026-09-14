@@ -1,30 +1,19 @@
 package pages;
 
-import engin.AssertionBot;
-import engin.BrowserBot;
-import engin.ElementBot;
+import engin.ActionsBot;
 import io.qameta.allure.Step;
-import models.AccountData;
-import models.AddressData;
+import dataModels.AccountData;
+import dataModels.AddressData;
 import org.openqa.selenium.By;
 
 public class SignUpPage {
     private String URL="https://automationexercise.com/signup";
-
-    ElementBot elementBot;
-    BrowserBot browserBot;
-    AssertionBot assertionBot;
+    private ActionsBot actionsBot;
 
 
-    public SignUpPage(ElementBot elementBot, BrowserBot browserBot, AssertionBot assertionBot)
-    {
-        this.elementBot=elementBot;
-        this.assertionBot=assertionBot;
-        this.browserBot=browserBot;
-
+    public SignUpPage(ActionsBot actionsBot) {
+        this.actionsBot = actionsBot;
     }
-
-
 
     //locators
     private By selectTitleRadioButton(String title) {
@@ -52,43 +41,43 @@ public class SignUpPage {
 
     @Step("Navigate to sign up page")
     public SignUpPage navigate() {
-        browserBot.navigateTo(URL);
+        actionsBot.getBrowserAction().navigateTo(URL);
         return this;
     }
     @Step("Validate that register form is open")
     public void validateThatRegisterFormIsOpen(){
-        assertionBot.validateElementIsDisplayed(accountInformationHeader);
+        actionsBot.getAssertionAction().validateElementIsDisplayed(accountInformationHeader);
 
     }
 
-    @Step("Fill account information with data: {accountData}")
+    @Step("Fill account information with valid data")
     public SignUpPage  fillAccountInfo(AccountData accountData) {
-        elementBot.click(selectTitleRadioButton(accountData.title()));
-        elementBot.type(passwordInput,accountData.password());
+        actionsBot.getElementAction().click(selectTitleRadioButton(accountData.title()));
+        actionsBot.getElementAction().type(passwordInput,accountData.password());
         selectBirthDate(accountData.day(), accountData.month(), accountData.year());
         return this;
     }
-    @Step("Fill address information with data: {addressData} and submit")
+    @Step("Fill address information with valid data and submit")
     public AccountCreatedPage fillAddressInfoAndSubmit(AddressData addressData) {
-        elementBot.type(firstNameInput,addressData.firstName());
-        elementBot.type(lastNameInput,addressData.lastName());
-        elementBot.type(companyInput,addressData.company());
-        elementBot.type(address1Input,addressData.address1());
-        elementBot.type(address2Input,addressData.address2());
-        elementBot.selectByVisibleText(countrySelect,addressData.country());
-        elementBot.type(stateInput,addressData.state());
-        elementBot.type(cityInput,addressData.city());
-        elementBot.type(zipcodeInput,addressData.zipCode());
-        elementBot.type(mobileNumberInput,addressData.mobileNumber());
-        elementBot.click(createAccountButton);
-        return new AccountCreatedPage(elementBot,browserBot,assertionBot);
+        actionsBot.getElementAction().type(firstNameInput,addressData.firstName());
+        actionsBot.getElementAction().type(lastNameInput,addressData.lastName());
+        actionsBot.getElementAction().type(companyInput,addressData.company());
+        actionsBot.getElementAction().type(address1Input,addressData.address1());
+        actionsBot.getElementAction().type(address2Input,addressData.address2());
+        actionsBot.getElementAction().selectByVisibleText(countrySelect,addressData.country());
+        actionsBot.getElementAction().type(stateInput,addressData.state());
+        actionsBot.getElementAction().type(cityInput,addressData.city());
+        actionsBot.getElementAction().type(zipcodeInput,addressData.zipCode());
+        actionsBot.getElementAction().type(mobileNumberInput,addressData.mobileNumber());
+        actionsBot.getElementAction().click(createAccountButton);
+        return new AccountCreatedPage(actionsBot);
     }
 
     @Step("Select birth date: {day}-{month}-{year}")
     private void selectBirthDate(String day, String month, String year) {
-        elementBot.selectByVisibleText(birthDaySelect, day);
-        elementBot.selectByVisibleText(birthMonthSelect, month);
-        elementBot.selectByVisibleText(birthYearSelect, year);
+        actionsBot.getElementAction().selectByVisibleText(birthDaySelect, day);
+        actionsBot.getElementAction().selectByVisibleText(birthMonthSelect, month);
+        actionsBot.getElementAction().selectByVisibleText(birthYearSelect, year);
 
     }
 
