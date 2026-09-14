@@ -8,16 +8,20 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-public class BrowserFactory { private WebDriver driver;
 
-    public WebDriver createDriver(String browserType) {
+public class BrowserFactory {
+    private WebDriver driver;
+
+    public WebDriver createDriver(String browserType)  {
         if (driver != null) {
             throw new IllegalStateException("A driver instance already exists. Please quit the existing driver before creating a new one.");
         }
 
         return switch (browserType.toLowerCase()) {
             case "chrome" -> {
-                driver = new ChromeDriver(getChromeOptions());
+
+                    driver = new ChromeDriver(getChromeOptions());
+
                 yield driver;
             }
             case "firefox" -> {
@@ -40,12 +44,11 @@ public class BrowserFactory { private WebDriver driver;
     }
 
     private ChromeOptions getChromeOptions() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--window-size=1920,1080");
-        return options;
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--window-size=1920,1080");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+        return chromeOptions;
     }
 
     private FirefoxOptions getFirefoxOptions() {

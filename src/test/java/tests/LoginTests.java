@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Description;
 import models.LoginData;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -9,6 +10,8 @@ public class LoginTests extends TestCase {
 
 
 
+
+    @Description("Test to validate successful login with valid credentials")
     @Test
      void loginWithValidData()
     {

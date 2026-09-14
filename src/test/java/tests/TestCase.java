@@ -8,13 +8,12 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
+import utils.ExcecutionListener;
+import utils.LogUtils;
 
 import java.time.Duration;
-
+@Listeners({ExcecutionListener.class})
 public abstract class TestCase {
 
     WebDriver driver;
@@ -26,6 +25,7 @@ public abstract class TestCase {
     @BeforeMethod
     @Parameters({"browserType" })
     public void setUp(@Optional("chrome") String browserType) {
+        LogUtils.info("Setting up the test environment with browser type: " + browserType);
         browserFactory = new BrowserFactory();
         driver = browserFactory.createDriver(browserType);
         wait = new FluentWait<>(driver)
@@ -41,6 +41,7 @@ public abstract class TestCase {
     @Step("Tearing down the test environment and quitting the browser")
     @AfterMethod
     public void tearDown() {
+        LogUtils.info("Tearing down the test environment and quitting the browser");
         browserFactory.quitDriver();
     }
 }
