@@ -1,6 +1,8 @@
 package tests;
-import engin.ActionsBot;
+import engin.AssertionBot;
+import engin.BrowserBot;
 import engin.BrowserFactory;
+import engin.ElementBot;
 import io.qameta.allure.Step;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NotFoundException;
@@ -16,17 +18,24 @@ import java.time.Duration;
 @Listeners({ExcecutionListener.class})
 public abstract class TestCase {
 
-    WebDriver driver;
-    public Wait<WebDriver> wait;
-    public ActionsBot bot;
-    private BrowserFactory browserFactory;
+    protected WebDriver driver;
+
+    protected Wait<WebDriver> wait;
+
+    protected ElementBot elementbot;
+
+    protected BrowserBot browserbot;
+
+    protected AssertionBot assertionbot;
+
+    protected BrowserFactory browserFactory;
 
     @Step("Setting up the test environment with browser type: {browserType}")
     @BeforeMethod
     @Parameters({"browserType" })
     public void setUp(@Optional("chrome") String browserType) {
         LogUtils.info("Setting up the test environment with browser type: " + browserType);
-        browserFactory = new BrowserFactory();
+        browserFactory=new BrowserFactory();
         driver = browserFactory.createDriver(browserType);
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(5))
@@ -34,8 +43,9 @@ public abstract class TestCase {
                 .ignoring(NotFoundException.class)
                 .ignoring(ElementNotInteractableException.class)
                 .ignoring(StaleElementReferenceException.class);
-
-        bot = new ActionsBot(wait);
+                elementbot=new ElementBot(wait);
+                browserbot=new BrowserBot(wait);
+                assertionbot=new AssertionBot(wait);
     }
 
     @Step("Tearing down the test environment and quitting the browser")

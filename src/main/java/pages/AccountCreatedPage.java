@@ -1,16 +1,25 @@
 package pages;
 
-import engin.ActionsBot;
+import engin.AssertionBot;
+import engin.BrowserBot;
+import engin.ElementBot;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 public class AccountCreatedPage {
 
-    ActionsBot bot;
+
+    ElementBot elementBot;
+    BrowserBot browserBot;
+    AssertionBot assertionBot;
 
 
-    public AccountCreatedPage(ActionsBot bot){
-        this.bot=bot;
+    public AccountCreatedPage(ElementBot elementBot,BrowserBot browserBot, AssertionBot assertionBot){
+        this.elementBot=elementBot;
+        this.browserBot=browserBot;
+        this.assertionBot=assertionBot;
+
+
     }
 
     //locators
@@ -19,13 +28,13 @@ public class AccountCreatedPage {
 
     @Step("Click on continue button")
     public HomePage clickContinueButton(){
-        bot.click(continueButton);
-        return new HomePage(bot);
+        elementBot.click(continueButton);
+        return new HomePage(elementBot,browserBot,assertionBot);
     }
 
     @Step("Validate that account created success message is displayed")
     public void validateAccountCreatedSuccessMessage (){
-      bot.validateTheTextOfElement(accountCreatedHeader,"ACCOUNT CREATED!");
+        assertionBot.validateTheTextOfElement(accountCreatedHeader,"ACCOUNT CREATED!");
 
     }
 }

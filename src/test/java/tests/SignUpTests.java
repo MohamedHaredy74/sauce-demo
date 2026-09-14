@@ -18,11 +18,11 @@ public class SignUpTests extends TestCase {
                         "validRegister.json",
                         RegisterData.class);
 
-        new LoginPage(bot)
+        new LoginPage(elementbot,browserbot,assertionbot)
                 .navigate()
                 .preSignUp(registerData.preSignUp())
                 .validateThatRegisterFormIsOpen();
-        new SignUpPage(bot)
+        new SignUpPage(elementbot,browserbot,assertionbot)
                 .fillAccountInfo(registerData.account())
                 .fillAddressInfoAndSubmit(registerData.address())
                 .validateAccountCreatedSuccessMessage();

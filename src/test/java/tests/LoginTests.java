@@ -20,7 +20,7 @@ public class LoginTests extends TestCase {
                         "validLogin.json",
                         LoginData.class);
 
-        new LoginPage(bot)
+        new LoginPage(elementbot,browserbot,assertionbot)
                 .navigate()
                 .login(loginData);
 

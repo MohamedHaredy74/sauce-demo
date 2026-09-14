@@ -1,6 +1,8 @@
 package pages;
 
-import engin.ActionsBot;
+import engin.AssertionBot;
+import engin.BrowserBot;
+import engin.ElementBot;
 import io.qameta.allure.Step;
 import models.AccountData;
 import models.AddressData;
@@ -8,7 +10,19 @@ import org.openqa.selenium.By;
 
 public class SignUpPage {
     private String URL="https://automationexercise.com/signup";
-    ActionsBot bot;
+
+    ElementBot elementBot;
+    BrowserBot browserBot;
+    AssertionBot assertionBot;
+
+
+    public SignUpPage(ElementBot elementBot, BrowserBot browserBot, AssertionBot assertionBot)
+    {
+        this.elementBot=elementBot;
+        this.assertionBot=assertionBot;
+        this.browserBot=browserBot;
+
+    }
 
 
 
@@ -34,52 +48,47 @@ public class SignUpPage {
     By mobileNumberInput= By.xpath("//input[@id='mobile_number']");
     By createAccountButton= By.xpath("//button[@type='submit'][contains(.,'Create Account')]");
 
-    public SignUpPage(ActionsBot bot)
-    {
-        this.bot=bot;
-        //Islam sends his greetings
-    }
 
 
     @Step("Navigate to sign up page")
     public SignUpPage navigate() {
-        bot.navigateTo(URL);
+        browserBot.navigateTo(URL);
         return this;
     }
     @Step("Validate that register form is open")
     public void validateThatRegisterFormIsOpen(){
-      bot.validateElementIsDisplayed(accountInformationHeader);
+        assertionBot.validateElementIsDisplayed(accountInformationHeader);
 
     }
 
     @Step("Fill account information with data: {accountData}")
     public SignUpPage  fillAccountInfo(AccountData accountData) {
-        bot.click(selectTitleRadioButton(accountData.title()));
-        bot.type(passwordInput,accountData.password());
+        elementBot.click(selectTitleRadioButton(accountData.title()));
+        elementBot.type(passwordInput,accountData.password());
         selectBirthDate(accountData.day(), accountData.month(), accountData.year());
         return this;
     }
     @Step("Fill address information with data: {addressData} and submit")
     public AccountCreatedPage fillAddressInfoAndSubmit(AddressData addressData) {
-        bot.type(firstNameInput,addressData.firstName());
-        bot.type(lastNameInput,addressData.lastName());
-        bot.type(companyInput,addressData.company());
-        bot.type(address1Input,addressData.address1());
-        bot.type(address2Input,addressData.address2());
-        bot.selectByVisibleText(countrySelect,addressData.country());
-        bot.type(stateInput,addressData.state());
-        bot.type(cityInput,addressData.city());
-        bot.type(zipcodeInput,addressData.zipCode());
-        bot.type(mobileNumberInput,addressData.mobileNumber());
-        bot.click(createAccountButton);
-        return new AccountCreatedPage(bot);
+        elementBot.type(firstNameInput,addressData.firstName());
+        elementBot.type(lastNameInput,addressData.lastName());
+        elementBot.type(companyInput,addressData.company());
+        elementBot.type(address1Input,addressData.address1());
+        elementBot.type(address2Input,addressData.address2());
+        elementBot.selectByVisibleText(countrySelect,addressData.country());
+        elementBot.type(stateInput,addressData.state());
+        elementBot.type(cityInput,addressData.city());
+        elementBot.type(zipcodeInput,addressData.zipCode());
+        elementBot.type(mobileNumberInput,addressData.mobileNumber());
+        elementBot.click(createAccountButton);
+        return new AccountCreatedPage(elementBot,browserBot,assertionBot);
     }
 
     @Step("Select birth date: {day}-{month}-{year}")
     private void selectBirthDate(String day, String month, String year) {
-        bot.selectByVisibleText(birthDaySelect, day);
-        bot.selectByVisibleText(birthMonthSelect, month);
-        bot.selectByVisibleText(birthYearSelect, year);
+        elementBot.selectByVisibleText(birthDaySelect, day);
+        elementBot.selectByVisibleText(birthMonthSelect, month);
+        elementBot.selectByVisibleText(birthYearSelect, year);
 
     }
 

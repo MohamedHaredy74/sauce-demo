@@ -1,6 +1,8 @@
 package pages;
 
-import engin.ActionsBot;
+import engin.AssertionBot;
+import engin.BrowserBot;
+import engin.ElementBot;
 import io.qameta.allure.Step;
 import models.LoginData;
 import models.PreSignUpData;
@@ -10,9 +12,16 @@ import org.openqa.selenium.By;
 public class LoginPage {
 
     private final  String URL ="https://automationexercise.com/login";
-    ActionsBot bot;
-    public LoginPage(ActionsBot bot  ){
-        this.bot=bot;
+
+    ElementBot elementBot;
+    BrowserBot browserBot;
+    AssertionBot assertionBot;
+    public LoginPage(ElementBot elementBot, BrowserBot browserBot,AssertionBot assertionBot){
+
+        this.elementBot=elementBot;
+        this.browserBot= browserBot;
+        this.assertionBot=assertionBot;
+
     }
 
     //locators
@@ -27,25 +36,25 @@ public class LoginPage {
 
     @Step("Navigate to login page")
     public LoginPage navigate(){
-        bot.navigateTo(URL);
+        browserBot.navigateTo(URL);
         return this;
     }
 
     @Step("Pre sign up with:{data} ")
     public SignUpPage preSignUp(PreSignUpData data)
     {
-        bot.type(signUpNameInput, data.name());
-        bot.type(signUpEmailInput,"user" + System.currentTimeMillis() + "@test.com");
-        bot.click(signUpButton);
-        return new SignUpPage(bot);
+        elementBot.type(signUpNameInput, data.name());
+        elementBot.type(signUpEmailInput,"user" + System.currentTimeMillis() + "@test.com");
+        elementBot.click(signUpButton);
+        return new SignUpPage(elementBot,browserBot,assertionBot);
     }
 
 
     @Step("Login with: {loginData}")
     public void login(LoginData loginData){
-        bot.type(loginEmailInput,loginData.email());
-        bot.type(loginPasswordInput, loginData.password());
-        bot.click(loginButton);
+        elementBot.type(loginEmailInput,loginData.email());
+        elementBot.type(loginPasswordInput, loginData.password());
+        elementBot.click(loginButton);
 
     }
 
