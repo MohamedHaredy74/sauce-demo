@@ -72,7 +72,6 @@ sauce-demo/
 │   │   │   │   ├── ActionsBot.java
 │   │   │   │   ├── AssertionActions.java
 │   │   │   │   ├── BrowserActions.java
-│   │   │   │   ├── BrowserFactory.java
 │   │   │   │   └── ElementActions.java
 │   │   │   │
 │   │   │   ├── pages/
@@ -92,9 +91,13 @@ sauce-demo/
 │       ├── java/
 │       │   ├── tests/
 │       │   │   ├── TestCase.java
-│       │   │   └── LoginTests.java
+│       │   │   ├── LoginTests.java
+│       │   │   └── SignUpTests.java
 │       │   │
 │       │   └── utils/
+│       │       ├── BrowserFactory.java
+│       │       ├── ExcecutionListener.java
+│       │       └── JsonReader.java
 │       │
 │       └── resources/
 │           ├── testData/
@@ -154,7 +157,17 @@ The `engin` package contains the reusable automation infrastructure.
 
 ## BrowserFactory
 
-`BrowserFactory` is responsible for creating the WebDriver instance.
+`BrowserFactory` is a test utility class (located in `src/test/java/utils/`) responsible for creating and managing the WebDriver instance.
+
+It supports three browsers through a switch expression:
+
+```java
+switch (browserType.toLowerCase()) {
+    case "chrome"   -> new ChromeDriver(getChromeOptions());
+    case "firefox"  -> new FirefoxDriver(getFirefoxOptions());
+    case "edge"     -> new EdgeDriver(getEdgeOptions());
+}
+```
 
 The test environment requests a browser through a TestNG parameter:
 
@@ -442,7 +455,7 @@ public record LoginData(
 }
 ```
 
-The JSON data is loaded into the model using `JsonReader`:
+The JSON data is loaded into the model using `JsonReader` (located in `src/test/java/utils/`):
 
 ```java
 LoginData loginData =
@@ -451,6 +464,8 @@ LoginData loginData =
                 LoginData.class
         );
 ```
+
+`JsonReader` uses Jackson's `ObjectMapper` and resolves files relative to `src/test/resources/testData/`.
 
 This keeps test data separate from the test implementation.
 
@@ -496,6 +511,43 @@ The test itself remains focused on the scenario, while:
 - Element interaction is handled by `ElementActions`
 - Page behavior is handled by Page Objects
 - Test data is handled by JSON + data models
+
+---
+
+# Example Test — Sign Up
+
+A registration test follows the same pattern, chaining through multiple pages:
+
+```java
+public class SignUpTests extends TestCase {
+
+    @Description("Test to validate successful registration with valid data")
+    @Test
+    void validateSuccessRegisterWithValidData() {
+
+        RegisterData registerData =
+                JsonReader.read(
+                        "validRegister.json",
+                        RegisterData.class);
+
+        new LoginPage(actionsBot)
+                .navigate()
+                .preSignUp(registerData.preSignUp())
+                .validateThatRegisterFormIsOpen();
+
+        new SignUpPage(actionsBot)
+                .fillAccountInfo(registerData.account())
+                .fillAddressInfoAndSubmit(registerData.address())
+                .validateAccountCreatedSuccessMessage();
+    }
+}
+```
+
+The test spans two pages (`LoginPage` → `SignUpPage`) and uses a `RegisterData` record composed of:
+
+- `preSignUp()` — name and email for the pre-registration step
+- `account()` — account details for the registration form
+- `address()` — address and submission details
 
 ---
 
@@ -553,18 +605,31 @@ This produces readable steps in the Allure report.
 
 # TestNG Listener
 
-The framework registers a TestNG execution listener:
+`ExcecutionListener` (located in `src/test/java/utils/`) implements `IExecutionListener` and is registered on the base test class:
 
 ```java
 @Listeners({ExcecutionListener.class})
+public abstract class TestCase { ... }
 ```
 
-The listener can be used to centralize execution-related behavior such as:
+Current behavior:
 
-- Test lifecycle handling
+```java
+@Override
+public void onExecutionStart() {
+    LogUtils.info("Execution started");
+}
+
+@Override
+public void onExecutionFinish() {
+    LogUtils.info("Execution finished");
+}
+```
+
+The listener can be extended to centralize execution-related behavior such as:
+
 - Failure handling
 - Screenshots
-- Logging
 - Reporting attachments
 
 ---
@@ -624,7 +689,15 @@ The browser can be supplied through the TestNG parameter:
 <parameter name="browserType" value="chrome"/>
 ```
 
-The `BrowserFactory` is responsible for translating the browser type into the appropriate WebDriver implementation.
+Supported browser values:
+
+| Value | Browser |
+|---|---|
+| `chrome` | Google Chrome |
+| `firefox` | Mozilla Firefox |
+| `edge` | Microsoft Edge |
+
+The `BrowserFactory` translates the browser type string into the appropriate WebDriver implementation, including browser-specific options (window size, sandbox flags, etc.).
 
 ---
 
