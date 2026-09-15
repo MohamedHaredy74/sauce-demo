@@ -11,9 +11,11 @@ import org.testng.annotations.*;
 import utils.BrowserFactory;
 import utils.ExcecutionListener;
 import utils.LogUtils;
+import utils.ScreenshotListener;
+import utils.TestLogCaptureAppender;
 
 import java.time.Duration;
-@Listeners({ExcecutionListener.class})
+@Listeners({ExcecutionListener.class, ScreenshotListener.class})
 public abstract class TestCase {
 
     protected WebDriver driver;
@@ -26,6 +28,7 @@ public abstract class TestCase {
     @BeforeMethod
     @Parameters({"browserType" })
     public void setUp(@Optional("chrome") String browserType) {
+        TestLogCaptureAppender.clear();
         LogUtils.info("Setting up the test environment with browser type: " + browserType);
         browserFactory=new BrowserFactory();
         driver = browserFactory.createDriver(browserType);
@@ -44,5 +47,9 @@ public abstract class TestCase {
     public void tearDown() {
         LogUtils.info("Tearing down the test environment and quitting the browser");
         browserFactory.quitDriver();
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }

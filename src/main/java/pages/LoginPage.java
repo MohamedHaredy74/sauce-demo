@@ -23,7 +23,8 @@ public class LoginPage {
     By signUpButton= By.xpath("//form[@action='/signup']/button");
     By loginEmailInput=By.xpath("//form[@action='/login']/input[@name='email']");
     By loginPasswordInput=By.xpath("//form[@action='/login']/input[@name='password']");
-    By loginButton=By.xpath("//form[@action='/login']/button");
+    By loginButton=By.xpath("");
+    //By loginButton=By.xpath("//form[@action='/login']/button");
 
 
 
