@@ -19,7 +19,8 @@ public class LoginTests extends TestCase {
 
         new LoginPage(actionsBot)
                 .navigate()
-                .login(loginData);
+                .login(loginData)
+                .validateHomePageLoaded();
 
 
 

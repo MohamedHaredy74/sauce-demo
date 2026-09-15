@@ -23,8 +23,7 @@ public class LoginPage {
     By signUpButton= By.xpath("//form[@action='/signup']/button");
     By loginEmailInput=By.xpath("//form[@action='/login']/input[@name='email']");
     By loginPasswordInput=By.xpath("//form[@action='/login']/input[@name='password']");
-    By loginButton=By.xpath("");
-    //By loginButton=By.xpath("//form[@action='/login']/button");
+    By loginButton=By.xpath("//form[@action='/login']/button");
 
 
 
@@ -44,10 +43,11 @@ public class LoginPage {
     }
 
     @Step("Login with valid email and valid password")
-    public void login(LoginData loginData){
+    public HomePage login(LoginData loginData){
         actionsBot.getElementAction().type(loginEmailInput,loginData.email());
         actionsBot.getElementAction().type(loginPasswordInput, loginData.password());
         actionsBot.getElementAction().click(loginButton);
+        return new HomePage(actionsBot);
 
     }
 

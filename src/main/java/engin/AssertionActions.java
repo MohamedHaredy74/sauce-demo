@@ -39,5 +39,17 @@ public AssertionActions(Wait<WebDriver> wait) {
     }
 
 
+    @Step("Asserting that page title is equal to: {expectedTitle}")
+    public AssertionActions assertThePageTitle( String expectedTitle) {
+        wait.until(d -> {
+            LogUtils.info("Asserting that page title is equal to: " + expectedTitle);
+            Assert.assertEquals(d.getTitle(), expectedTitle);
+            LogUtils.info("Assertion was successful.");
+            return true;
+        });
+        return this;
+    }
+
+
 
 }

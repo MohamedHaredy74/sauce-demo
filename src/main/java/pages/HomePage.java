@@ -29,6 +29,10 @@ public class HomePage {
         actionsBot.getElementAction().click(loginLink);
         return new LoginPage(actionsBot);
     }
+    public void  validateHomePageLoaded(){
+        actionsBot.getAssertionAction().assertThePageTitle("Automation Exercise");
+
+    }
 
 
 }
