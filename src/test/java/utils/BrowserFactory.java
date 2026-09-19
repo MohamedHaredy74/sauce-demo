@@ -14,7 +14,8 @@ public class BrowserFactory {
 
     public WebDriver createDriver(String browserType)  {
         if (driver != null) {
-            throw new IllegalStateException("A driver instance already exists. Please quit the existing driver before creating a new one.");
+            throw new IllegalStateException("A driver instance already exists." +
+                    " Please quit the existing driver before creating a new one.");
         }
 
         return switch (browserType.toLowerCase()) {
