@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Test output ###
+allure-report/
+logs/
+
+### Claude Code ###
+.claude/
+
+### Unused ###
+package-lock.json
