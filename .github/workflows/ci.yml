@@ -81,7 +81,7 @@ jobs:
           done
           {
             echo '<!doctype html><meta charset="utf-8"><title>Allure reports</title>'
-            echo '<h1>Sauce Demo - Allure reports</h1><ul>'
+            echo '<h1>WebAutomation Demo - Allure reports</h1><ul>'
             for dir in site/*/; do
               name="$(basename "$dir")"
               echo "<li><a href=\"$name/\">$name</a></li>"

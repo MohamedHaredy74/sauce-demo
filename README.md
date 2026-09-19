@@ -1,6 +1,6 @@
-# Sauce Demo UI Automation Framework
+# WebAutomation Demo UI Automation Framework
 
-[![CI](https://github.com/MohamedHaredy74/sauce-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedHaredy74/sauce-demo/actions/workflows/ci.yml)
+[![CI](https://github.com/MohamedHaredy74/web-automation-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedHaredy74/web-automation-demo/actions/workflows/ci.yml)
 
 A Java-based UI test automation framework built with **Selenium WebDriver, TestNG, Maven, Allure, Log4j2, and Jackson**.  
 The framework uses the **Page Object Model (POM)** with a **fluent interface style**, reusable action classes, external JSON test data, and a browser factory.
@@ -50,7 +50,7 @@ The framework uses the **Page Object Model (POM)** with a **fluent interface sty
 # Project Structure
 
 ```text
-sauce-demo/
+web-automation-demo/
 │
 ├── .idea/
 ├── .mvn/
@@ -728,7 +728,7 @@ The workflow in `.github/workflows/ci.yml` runs on every push and pull request t
 
 Reports are kept per browser because identical test names across browsers would otherwise be merged into a single test with "retries".
 
-Published reports: <https://mohamedharedy74.github.io/sauce-demo/>
+Published reports: <https://mohamedharedy74.github.io/web-automation-demo/>
 
 One-time setup: in the repository go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 
