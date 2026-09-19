@@ -28,6 +28,7 @@ public abstract class TestCase {
     @BeforeMethod
     @Parameters({"browserType" })
     public void setUp(@Optional("chrome") String browserType) {
+        browserType = System.getProperty("browserType", browserType);
         TestLogCaptureAppender.clear();
         LogUtils.info("Setting up the test environment with browser type: " + browserType);
         browserFactory=new BrowserFactory();
@@ -37,7 +38,8 @@ public abstract class TestCase {
                 .pollingEvery(Duration.ofMillis(250))
                 .ignoring(NotFoundException.class)
                 .ignoring(ElementNotInteractableException.class)
-                .ignoring(StaleElementReferenceException.class);
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(AssertionError.class);
 
         actionsBot= new ActionsBot(wait);
     }

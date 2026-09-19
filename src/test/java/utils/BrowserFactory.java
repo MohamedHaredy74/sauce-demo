@@ -43,11 +43,18 @@ public class BrowserFactory {
         }
     }
 
+    private boolean isHeadless() {
+        return Boolean.getBoolean("headless");
+    }
+
     private ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--window-size=1920,1080");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        if (isHeadless()) {
+            chromeOptions.addArguments("--headless=new");
+        }
         return chromeOptions;
     }
 
@@ -55,6 +62,9 @@ public class BrowserFactory {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--width=1920");
         options.addArguments("--height=1080");
+        if (isHeadless()) {
+            options.addArguments("-headless");
+        }
         return options;
     }
 
@@ -62,6 +72,9 @@ public class BrowserFactory {
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--window-size=1920,1080");
+        if (isHeadless()) {
+            options.addArguments("--headless=new");
+        }
         return options;
     }
 }

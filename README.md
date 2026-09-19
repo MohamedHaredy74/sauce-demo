@@ -1,5 +1,7 @@
 # Sauce Demo UI Automation Framework
 
+[![CI](https://github.com/MohamedHaredy74/sauce-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedHaredy74/sauce-demo/actions/workflows/ci.yml)
+
 A Java-based UI test automation framework built with **Selenium WebDriver, TestNG, Maven, Allure, Log4j2, and Jackson**.  
 The framework uses the **Page Object Model (POM)** with a **fluent interface style**, reusable action classes, external JSON test data, and a browser factory.
 
@@ -699,6 +701,37 @@ Supported browser values:
 
 The `BrowserFactory` translates the browser type string into the appropriate WebDriver implementation, including browser-specific options (window size, sandbox flags, etc.).
 
+### Command-line overrides
+
+Two system properties can be passed to Maven:
+
+| Property | Effect |
+|---|---|
+| `-DbrowserType=firefox` | Overrides the TestNG `browserType` parameter (and the `chrome` default) |
+| `-Dheadless=true` | Runs the browser without a window (default is headed) |
+
+```bash
+mvn clean test -DbrowserType=firefox -Dheadless=true
+```
+
+---
+
+# CI/CD
+
+The workflow in `.github/workflows/ci.yml` runs on every push and pull request to `main`, and can also be started manually from the Actions tab.
+
+| Job | What it does |
+|---|---|
+| `test` | Runs the suite headless on **Chrome** and **Firefox** as a parallel matrix, and uploads the Allure results (plus logs on failure) as artifacts |
+| `report` | Builds one Allure report per browser and uploads them as the `allure-report` artifact |
+| `deploy` | On pushes to `main` only, publishes the reports to GitHub Pages |
+
+Reports are kept per browser because identical test names across browsers would otherwise be merged into a single test with "retries".
+
+Published reports: <https://mohamedharedy74.github.io/sauce-demo/>
+
+One-time setup: in the repository go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+
 ---
 
 # Recommended Framework Practices
@@ -790,12 +823,10 @@ Potential improvements as the framework grows:
 
 - Introduce a `BasePage` for shared Page Object behavior
 - Improve condition-specific waiting inside action classes
-- Add automatic screenshots on test failure
 - Add TestNG groups such as Smoke and Regression
 - Add parallel execution
 - Add environment-specific configuration
 - Add configurable test-data environments
-- Add CI/CD integration
 - Add retry handling for appropriate transient failures
 - Improve Allure attachments
 - Add API testing integration
